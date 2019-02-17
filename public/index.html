@@ -6,8 +6,35 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>editor</title>
+    <style>
+      *,
+      *::before,
+      *::after,
+        box-sizing: border-box
+        
+      body
+        font-size: 16px
+        font-weight: 400
+        font-family: Montserrat
+        margin: 0 !important
+        padding: 0
+        &::-webkit-scrollbar
+          width: 5px
+        &::-webkit-scrollbar-track
+          background-color: rgba(0, 0, 0, 0.10)
+        &::-webkit-scrollbar-thumb
+          background-color: #1C1C1C
+
+      a
+        text-decoration: none
+
+      .row
+        margin-right: 0
+        margin-left: 0
+
+    </style>
   </head>
-  <body>
+  <body style="margin: 0;">
     <noscript>
       <strong>We're sorry but editor doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>

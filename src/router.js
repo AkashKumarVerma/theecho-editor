@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import Login from './views/Login.vue'
+import Store from './store'
 
 Vue.use(Router)
 
@@ -11,7 +13,19 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      beforeEnter: (to, from, next) => {
+        if(Store.state.user.signedIn) {
+          next()
+        } else {
+          to('/login')
+        }
+      }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     },
     {
       path: '/about',

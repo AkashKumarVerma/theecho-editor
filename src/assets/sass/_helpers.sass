@@ -1,0 +1,72 @@
+@import './settings'
+
+.container
+  width: auto
+  max-width: 1366px
+  height: auto
+  @extend .center-x
+.center-x
+  margin-left: auto
+  margin-right: auto
+
+.center-y
+  // Find a good way to do this.
+
+.image img,
+.image svg
+    display: block
+    background-size: contain
+    overflow: hidden
+.image-x img,
+.image-x svg
+  width: 100%
+  min-width: 100%
+  height: auto
+.image-y img,
+.image-y svg
+  width: auto
+  height: 100%
+  @extend .center-x
+.image-tint
+  img
+    filter: brightness(.5)
+
+
+.r
+  background-color: red
+.g
+  background-color: green
+.b
+  background-color: blue
+.y
+  background-color: yellow
+
+
+// Flex Properties
+%flex
+  display: flex
+%flex-row
+  flex-direction: row
+%flex-col
+  flex-direction: column
+%flex-no-wrap
+  flex-wrap: nowrap
+
+// Positoinal Properties
+%relative
+  position: relative
+%absolute
+  position: absolute
+%fixed
+  position: fixed
+
+%article-title
+  font-family: $FontSpecial
+  font-weight: $FontBold
+  color: $ColorBlack
+%article-title--large
+  font-size: 53px
+%article-title--medium
+  font-size: 42px
+%article-title--small
+  font-size: 24px
