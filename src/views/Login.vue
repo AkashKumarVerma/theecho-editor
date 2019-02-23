@@ -6,9 +6,15 @@
       </div>
       <div class="login__form-form">
         <span class="login__form-header">Welcome Back Editors</span>
-        <input type="text" placeholder="Email" autocomplete="off">
-        <input type="password" placeholder="Password" autocomplete="off">
-        <button>SIGN IN</button>
+        <input v-model="email" type="text" placeholder="Email" autocomplete="off">
+        <input v-model="password" type="password" placeholder="Password" autocomplete="off">
+        <button @click="login">SIGN IN
+          <transition name="spinner">
+            <span v-if="authenticating" class="spinner image image-y">
+              <img src="@/assets/images/oval.svg" alt="">
+            </span>
+          </transition>
+        </button>
         <span class="register">Create Account</span>
       </div>
     </div>
@@ -16,7 +22,37 @@
 </template>
 
 <script>
-  name: 'Login'
+import { AuthenticationController } from '@/controllers'
+
+export default {
+  name: 'Login',
+  data() {
+    return {
+      email: '',
+      password: '',
+      authenticating: this.$store.state.auth.authenticating,
+      authenticationError: this.$store.state.auth.authenticationError,
+      authenticationErrorCode: this.$store.state.auth.authenticationErrorCode
+    }
+  },
+  methods: {
+    login() {
+      const credentials = {
+        email: this.email,
+        password: this.password
+      }
+      AuthenticationController
+        .login(credentials)
+        .then((res) => {
+          if(res.status = 'SUCCESS') {
+            this.$router.push('/dasboard')
+          }
+        }).catch((err) => {
+          console.log(err)
+        })
+    }
+  }
+}
 </script>
 
 <style lang="sass" scoped>
@@ -68,6 +104,21 @@
       color: #FFFFFF
       margin: 20px auto
       cursor: pointer
+      position: relative
+
+      &:active,
+      &:focus
+        outline: none
+
+    .spinner
+      position: absolute
+      left: 0
+      top: 0
+      padding: 15px
+      background-color: rgba(255, 255, 255, 0.95)
+      width: 100%
+      height: 100%
+
     .register
       display: block
       text-align: center
@@ -75,5 +126,13 @@
       font-size: 14px
       font-weight: 400
       cursor: pointer
+
+.spinner-enter-active,
+.spinner-leave-active
+  transition: opacity 0.1s ease-out
+
+.spinner-enter,
+.spinner-leave-active
+  opacity: 0
 
 </style>

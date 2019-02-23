@@ -5,32 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css" >
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,500,800">
     <title>editor</title>
     <style>
       *,
       *::before,
-      *::after,
-        box-sizing: border-box
+      *::after {
+        box-sizing: border-box;
+      }
         
-      body
-        font-size: 16px
-        font-weight: 400
-        font-family: Montserrat
-        margin: 0 !important
-        padding: 0
-        &::-webkit-scrollbar
-          width: 5px
-        &::-webkit-scrollbar-track
-          background-color: rgba(0, 0, 0, 0.10)
-        &::-webkit-scrollbar-thumb
-          background-color: #1C1C1C
+      body {
+        font-size: 16px;
+        font-weight: 400;
+        font-family: Montserrat;
+        margin: 0 !important;
+        padding: 0;
+      }
+      body::-webkit-scrollbar { width: 5px; }
+      body::-webkit-scrollbar-track { background-color: rgba(0, 0, 0, 0.10); }
+      body::-webkit-scrollbar-thumb { background-color: #1C1C1C; }
 
-      a
-        text-decoration: none
+      a { text-decoration: none; }
 
-      .row
-        margin-right: 0
-        margin-left: 0
+      .row {
+        margin-right: 0;
+        margin-left: 0;
+      }
 
     </style>
   </head>

@@ -3,6 +3,10 @@
     <div class="icon">
       <img src="@/assets/images/logo.png" alt=""> 
     </div>
+    <router-link to="/editor">
+      <span class="editor-link">New Story</span>
+    </router-link>
+
   </nav>
 </template>
 
@@ -33,4 +37,11 @@ nav
       width: 100%
       height: auto
       background-size: contain
+
+  .editor-link
+    margin-right: 200px
+    font-family: Montserrat
+    font-size: 18px
+    font-weight: 700
+    line-height: 60px
 </style>
