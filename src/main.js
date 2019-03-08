@@ -6,7 +6,7 @@ import './registerServiceWorker'
 import ApiService from '@/services/api.service'
 import config from '@/config'
 
-ApiService.init(config.API_URL)
+ApiService.init('https://api.theecho.in')
 
 Vue.config.productionTip = false
 
