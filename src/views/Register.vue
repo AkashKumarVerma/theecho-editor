@@ -8,7 +8,7 @@
         <input v-model="username" type="text" placeholder="Username" autocomplete="off">
         <input v-model="email" type="text" placeholder="Email" autocomplete="off">
         <input v-model="password" type="password" placeholder="Password" autocomplete="off">
-        <button @click="register">SIGN IN
+        <button @click="register">CREATE ACOOUNT
           <transition name="spinner">
             <span v-if="authenticating" class="spinner image image-y">
               <img src="@/assets/images/oval.svg" alt="">

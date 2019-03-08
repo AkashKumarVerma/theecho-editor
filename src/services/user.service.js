@@ -7,8 +7,7 @@ const login = async (credentials) => {
   }
 
   const response = await ApiService.post('/users/login', requestData)
-
-  console.log(response)
+  console.log('Login Response', response)
   if(response.data.user) {
     return response.data.user
   } else {

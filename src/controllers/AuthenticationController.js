@@ -22,7 +22,7 @@ const login = async (credentials) => {
       UserStorage.saveUser(user)
       return res
     }).catch((err) => {
-      return Promise.reject(err)
+      console.log(err)
     })
 }
 
