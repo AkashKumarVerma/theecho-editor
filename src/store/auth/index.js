@@ -42,13 +42,24 @@ const mutations = {
     state.authenticating = false
     state.authenticationError = errorMessage
     state.authenticationErrorCode = errorCode
+  },
+  
+  signout(state) {
+    state.accessToken = ''
+    state.authenticating = false
+    state.authenticationError = ''
+    state.authenticationErrorCode = 0
   }
 }
 
 const actions = {
   async login({ commit }, user) {
     commit('loginRequest')
-    commit('loginSuccess', 'ACCESS_TOKEN')
+    commit('loginSuccess', user.token)
+  },
+
+  async signout({ commit }) {
+    commit('signout')
   }
 }
 

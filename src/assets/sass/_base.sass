@@ -1,32 +1,72 @@
-*,
-*::before,
-*::after,
+@import './settings'
+
+*
+  margin: 0
+  padding: 0
   box-sizing: border-box
-  
-body
-  font-size: 16px
-  font-weight: 400
+  text-size-adjust: border-box
+  text-rendering: optimizeLegibility
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+  -webkit-touch-callout: none
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  &:focus
+    outline: none
+  &::before,
+  &::after
+    box-sizing: border-box
+
+
+html
   font-family: Montserrat
-  margin: 0 !important
+  font-size: 16px
+  color: $TextColorPrimary
+  line-height: 1.5
+
+body
+  margin: 0
   padding: 0
   &::-webkit-scrollbar
-    width: 5px
+    width: $ScrollbarWidth
   &::-webkit-scrollbar-track
-    background-color: rgba(0, 0, 0, 0.10)
+    // background-color: rgba(0, 0, 0, 0.10)
+    background-color: $ScrollbarBackground
   &::-webkit-scrollbar-thumb
-    background-color: #1C1C1C
+    background-color: $ColorBlack
 
 a
+  color: inherit
   text-decoration: none
 
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+pre,
+blockquote
+  margin: 1rem 0
+  &:first-child
+    margin-top: 0
+  &:last-child
+    margin-bottom: 0
+
+h1,
+h2,
+h3
+  line-height: 1.3
+
+// Removes left and right negative margin from Flexboxgrid
+// .row classes. 
 .row
   margin-right: 0
   margin-left: 0
 
+// Global layout change transition for Nuxt
 .layout-enter-active,
 .layout-leave-active
   transition: all .25s ease-out;
-
 .layout-enter,
 .layout-leave-active
   opacity: 0

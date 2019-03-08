@@ -1,6 +1,6 @@
 <template>
-  <div class="dasboard">
-    <h1>Drafts</h1>
+  <div class="drafts">
+    
   </div>
 </template>
 
@@ -11,13 +11,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.dasbaord
-  font-family: Montserrat
-  font-size: 42px
-  font-weight: 500px
-  color: #414141
-
-  h1
-    margin: 100px auto
+.drafts
+  padding: 20px
 </style>
 

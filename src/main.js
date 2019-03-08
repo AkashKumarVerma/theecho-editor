@@ -4,8 +4,9 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import ApiService from '@/services/api.service'
+import config from '@/config'
 
-ApiService.init('http://localhost:3000/api')
+ApiService.init(config.API_URL)
 
 Vue.config.productionTip = false
 

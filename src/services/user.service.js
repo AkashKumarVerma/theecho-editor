@@ -8,13 +8,33 @@ const login = async (credentials) => {
 
   const response = await ApiService.post('/users/login', requestData)
 
-  if(response.data.status === "SUCCESS") {
-    return response.data
+  console.log(response)
+  if(response.data.user) {
+    return response.data.user
   } else {
-    return Promise.reject(response.error)
+    return Promise.reject(response.data.error)
+  }
+}
+
+const register = async (credentials) => {
+  const { email, password, username } = credentials
+
+  if (email && password && username) {
+
+    const response = await ApiService.post('/users', credentials)
+
+    if(response.data.status === 'ok') {
+      return response.data.user
+    } else {
+      return Promise.reject({
+        error: 'Registration Failed',
+        message: response.data.err
+      })
+    }
   }
 }
 
 export default {
-  login
+  login,
+  register
 }

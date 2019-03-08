@@ -1,3 +1,10 @@
 runtime: nodejs10
-
 instance_class: F2
+service: editor
+handlers:
+  - url: /(.*\.(js|css|png|jpg|svg|ttf))$
+    static_files: dist/\1
+    upload: dist/.*\.(js|css|png|jpg|svg|ttf)$
+  - url: /.*
+    static_files: dist/index.html
+    upload: dist/index.html

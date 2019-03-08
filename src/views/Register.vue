@@ -1,20 +1,21 @@
 <template>
-  <div class="login">
-    <div class="login__form">
+  <div class="register">
+    <div class="register__form">
       <div class="logo image image-x">
         <img src="@/assets/images/logo.png" alt="">
       </div>
-      <div class="login__form-form">
+      <div class="register__form-form">
+        <input v-model="username" type="text" placeholder="Username" autocomplete="off">
         <input v-model="email" type="text" placeholder="Email" autocomplete="off">
         <input v-model="password" type="password" placeholder="Password" autocomplete="off">
-        <button @click="login">SIGN IN
+        <button @click="register">SIGN IN
           <transition name="spinner">
             <span v-if="authenticating" class="spinner image image-y">
               <img src="@/assets/images/oval.svg" alt="">
             </span>
           </transition>
         </button>
-        <span @click="$router.push('/register')" class="register">Create Account</span>
+        <span @click="$router.push('/login')" class="register">Sign In</span>
       </div>
     </div>
   </div>
@@ -24,30 +25,31 @@
 import { AuthenticationController } from '@/controllers'
 
 export default {
-  name: 'Login',
+  name: 'register',
   data() {
     return {
       email: '',
       password: '',
-      authenticating: this.$store.state.auth.authenticating,
-      authenticationError: this.$store.state.auth.authenticationError,
-      authenticationErrorCode: this.$store.state.auth.authenticationErrorCode
+      username: '',
+      authenticating: false
     }
   },
   methods: {
-    login() {
+    register() {
       const credentials = {
         email: this.email,
-        password: this.password
+        password: this.password,
+        username: this.username
       }
-      AuthenticationController.login(credentials)
+      
+      AuthenticationController.register(credentials)
     }
   }
 }
 </script>
 
 <style lang="sass" scoped>
-.login
+.register
   width: 100%
   height: auto
   height: calc(100vh - 60px)
@@ -110,6 +112,7 @@ export default {
 
     .register
       display: block
+      height: 20px
       text-align: center
       margin: 20px auto
       font-size: 14px

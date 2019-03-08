@@ -4,65 +4,59 @@
       <img src="@/assets/images/logoe.png" alt=""> 
     </div>
     <div class="sidebar-menu">
-      <ul ref="sidebarMenu">
+      <ul>
         <router-link to="/dashboard">
-          <li> <i class="fas fa-columns"></i> Dashboard</li>
-        </router-link>
+          <li><i class="fas fa-home"></i></li>
+        </router-link>  
         <router-link to="/drafts">
-          <li class="selected"> <i class="fas fa-scroll"></i> Drafts</li>
-        </router-link>
+          <li><i class="fas fa-scroll"></i></li>
+        </router-link>  
         <router-link to="/editor">
-          <li class="selected"> <i class="fas fa-edit"></i> Editor</li>
-        </router-link>
-        <router-link to="/stories">
-          <li> <i class="fas fa-dragon"></i> Stories</li>
-        </router-link>
+          <li><i class="fas fa-edit"></i></li>
+        </router-link>  
+        <router-link to="stories">
+          <li><i class="fas fa-dragon"></i></li>
+        </router-link>  
         <router-link to="/stats">
-          <li> <i class="fas fa-broadcast-tower"></i> Stats</li>
+          <li><i class="fas fa-broadcast-tower"></i></li>
+        </router-link>  
+        <router-link to="settings">
+          <li><i class="fas fa-cogs"></i></li>
         </router-link>
-        <router-link to="/settings">
-          <li> <i class="fas fa-cogs"></i> Settings</li>
-        </router-link>
+        <li @click="signOut" class="item-logout"><i class="fas fa-power-off"></i></li>
       </ul>
     </div>
   </aside>
 </template>
 
 <script>
+import { AuthenticationController } from '@/controllers'
+
 export default {
   name: 'Sidebar',
-  mounted() {
-    // const itemCount = this.$refs.sidebarMenu.children.length
-
-    // for(var i = 0; i < itemCount; i++) {
-    //   this.$refs.sidebarMenu.children[i].addEventListener('click', (e) => {
-    //     for(var j = 0; j < itemCount; j++) {
-    //       this.$refs.sidebarMenu.children[j].classList.remove('selected')
-    //     }
-    //     e.target.classList.add('selected')
-    //   })
-    // }
+  methods: {
+    signOut() {
+      AuthenticationController.signout()
+    }
   }
 }
 </script>
 
 <style lang="sass" scoped>
-@import '~@/assets/sass/settings'
-
 .sidebar
-  width: 250px
+  width: 50px
   height: 100vh
-  // background-color: #FFFFFF
   background-color: #000000
 
   position: fixed
   top: 0
   left: 0
 
+  transition: all 0.2s ease
   z-index: 9999
 
   &-logo
-    width: 70px
+    width: 50px
     height: auto
     margin-left: auto
     margin-right: auto
@@ -74,33 +68,42 @@ export default {
 
       background-size: contain
   &-menu
-    color: #FFFFFF
+    color: $ColorWhite
     font-family: Montserrat
-    font-size: 16px
+    font-size: 14px
+    padding-top: 100px
+    // position: relative
+
     ul
       display: block
-      padding: 50px
-      padding-left: 80px
-      padding-top: 80px
+      padding: 0
       margin: 0
+      text-align: left
 
       li
         list-style-type: none
         display: block
-        padding: 5px 0
-        margin: 10px 0
+        text-align: center
+        margin: 30px auto
         cursor: pointer
 
         i
-          margin-right: 10px
           font-size: 14px
-      a
-        display: block
-        color: #FFFFFF
-        text-decoration: none
 
-.router-link-active
-  border-bottom: 1px solid $ColorPrimary
-  margin: 15px 0
+    a
+      display: block
+      color: $ColorWhite
+      text-decoration: none
+
+    .router-link-active
+      color: $ColorPrimary
+
+    .item-logout
+      position: absolute
+      left: 15px
+      bottom: 10px
+      transition: all 0.14s ease-in-out
+      &:hover
+        color: $ColorPrimary
 
 </style> 

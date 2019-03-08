@@ -1,13 +1,16 @@
+import router from '@/router'
+
 const state = {
   signedIn: false,
-  name: '',
+  username: '',
   email: '',
-  permission: ''
+  verified: '',
+  image: ''
 }
 
 const getters = {
   name: (state) => {
-    return state.name
+    return state.username
   },
 
   email: (state) => {
@@ -15,34 +18,53 @@ const getters = {
   },
 
   permission: (state) => {
-    return state.permission
+    return state.verified
   }
 }
 
 const mutations = {
-  SET_NAME(state, name) {
-    state.name = name
+  SET_NAME(state, username) {
+    state.username = username
   },
 
   SET_EMAIL(state, email) {
     state.email = email
   },
 
-  SET_PERMISSION(state, permission) {
-    state.permission = permission
+  SET_VERIFIED(state, verified) {
+    state.verified = verified
+  },
+
+  SET_IMAGE(state, imageURL) {
+    state.image = imageURL
   },
 
   SIGNIN(state) {
     state.signedIn = true
+    router.push('/editor')
+  },
+  
+  SIGNOUT(state) {
+    state.signedIn = false
+    router.push('/')
   }
 }
 
 const actions = {
   setUser({ commit }, user) {
-    commit('SET_NAME', user.name)
+    commit('SET_NAME', user.username)
     commit('SET_EMAIL', user.email)
-    commit('SET_PERMISSION', user.permission)
+    commit('SET_VERIFIED', user.verified)
+    commit('SET_IMAGE', user.image)
     commit('SIGNIN')
+  },
+  
+  clearUser({ commit }) {
+    commit('SET_NAME', '')
+    commit('SET_EMAIL', '')
+    commit('SET_VERIFIED', false)
+    commit('SET_IMAGE', '')
+    commit('SIGNOUT')
   }
 }
 
