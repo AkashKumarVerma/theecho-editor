@@ -7,6 +7,9 @@
       <div class="login__form-form">
         <input v-model="email" type="text" placeholder="Email" autocomplete="off">
         <input v-model="password" type="password" placeholder="Password" autocomplete="off">
+        <transition name="error">
+          <span v-if="authenticationError !== ''" class="error">{{ authenticationError }}</span>
+        </transition>
         <button @click="login">SIGN IN
           <transition name="spinner">
             <span v-if="authenticating" class="spinner image image-y">
@@ -29,22 +32,29 @@ export default {
     return {
       email: '',
       password: '',
-      authenticating: this.$store.state.auth.authenticating,
-      authenticationError: this.$store.state.auth.authenticationError,
-      authenticationErrorCode: this.$store.state.auth.authenticationErrorCode
+      authenticating: false,
+      authenticationError: '',
+      authenticationErrorCode: ''
     }
   },
   methods: {
     login() {
+      this.authenticating = true
+      this.authenticationError = ''
+      this.authenticationErrorCode = ''
       const credentials = {
         email: this.email,
         password: this.password
       }
+
       AuthenticationController.login(credentials)
         .then((res) => {
-          console.log(res)
+          this.authenticating = false
         }).catch((err) => {
-          console.log(err)
+          this.authenticating = false
+          this.authenticationError = err.message
+          this.authenticationErrorCode = err.error
+          console.log(error)
         })
     }
   }
@@ -72,7 +82,7 @@ export default {
 
     &-form
       padding: 24px
-
+    
     &-header
       text-align: center
       display: block
@@ -103,7 +113,7 @@ export default {
       &:active,
       &:focus
         outline: none
-
+  
     .spinner
       position: absolute
       left: 0
@@ -120,6 +130,18 @@ export default {
       font-size: 14px
       font-weight: 400
       cursor: pointer
+
+.error
+  display: block
+  font-size: 12px
+  color: $ColorAccent
+  font-weight: $FontMedium
+  background-color: lighten($ColorAccent, 40)
+  text-align: center
+  width: 300px
+  margin: 10px auto
+  padding: 5px 0
+  height: auto
 
 .spinner-enter-active,
 .spinner-leave-active

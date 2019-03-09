@@ -6,14 +6,15 @@ const login = async (credentials) => {
     password: credentials.password
   }
 
-  const response = await ApiService.post('/users/login', requestData)
-  console.log('Login Response', response)
-  if(response.data.user) {
-    return response.data.user
-  } else {
-    return Promise.reject(response.data.error)
-  }
+  return ApiService.post('/users/login', requestData)
+    .then((res) => {
+      if (res.data.status === 'success') { return res.data.value }
+      return Promise.reject(res.data.error)
+    }).catch((err) => {
+      return Promise.reject(err)
+    })
 }
+
 
 const register = async (credentials) => {
   const { email, password, username } = credentials
