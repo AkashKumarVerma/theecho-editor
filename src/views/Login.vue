@@ -54,7 +54,7 @@ export default {
           this.authenticating = false
           this.authenticationError = err.message
           this.authenticationErrorCode = err.error
-          console.log(error)
+          console.log(err)
         })
     }
   }

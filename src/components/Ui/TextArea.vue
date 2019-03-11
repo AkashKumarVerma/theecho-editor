@@ -130,7 +130,7 @@
     <editor-content spellcheck="false" class="editor__content" :editor="editor" />
 
 
-    <modal v-if="visible">
+    <modal v-if="visible" @close="visible = false">
       <image-upload @selected="setImage"/>
     </modal>
   </div>
@@ -234,8 +234,12 @@ export default {
     },
     setImage(value) {
       this.visible = false
-      this.command({ src: value.url })
-      console.log(value)
+
+      if(value.type === 'URL') {
+        this.command({ src: value.url })
+      } else {
+        this.command({ src: value.file })
+      }
     },
     showLinkMenu(attrs) {
       this.linkUrl = attrs.href

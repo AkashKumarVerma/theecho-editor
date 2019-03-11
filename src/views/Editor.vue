@@ -28,11 +28,12 @@
     <modal @close="visible = false" v-if="visible">
       <image-upload @selected="setPoster"/>
     </modal>
+    <spinner :visibility="saving"/>
   </div>
 </template>
 
 <script>
-import { TextArea, Btn } from '@/components/Ui'
+import { TextArea, Btn, Spinner } from '@/components/Ui'
 import { ArticleController } from '@/controllers'
 import { EventBus, Events } from '@/services/event.service'
 import ImageUpload from '@/components/ImageUpload'
@@ -43,39 +44,52 @@ export default {
   data() {
     return {
       articlePoster: '',
-      articleTitle: '',
-      articleSubtitle: '',
-      articleBody: '',
+      articleTitle: {},
+      articleSubtitle: {},
+      articleBody: {},
       visible: false,
-      posterPreview: ''
+      posterPreview: '',
+      saving: false
     }
   },
   components: {
     TextArea,
+    Spinner,
     Btn,
     ImageUpload,
     Modal
   },
   methods: {
     saveArticleToDraft() {
-      const article = {
+
+      this.saving = true
+
+      const draft = {
         title: this.articleTitle,
         subtitle: this.articleSubtitle,
-        body: this.articleBody
+        body: this.articleBody,
+        poster: this.articlePoster
       }
       
-      ArticleController.saveArticles(article)
+      ArticleController.saveDraft(draft)
         .then((res) => {
-          console.log(res)
+          this.saving = false
         }).catch( err => {
-          console.log(err)
+          this.saving = false
         })
     },
+
     setPoster(poster) {
       this.visible = false
-      this.posterPreview = poster.data
+      if(poster.type === 'URL') {
+        this.posterPreview = poster.url
+      } else {
+        this.posterPreview = poster.file
+      }
     }
+
   },
+
   mounted() {
     EventBus.$on(Events.SAVE_DRAFT, () => {
       this.saveArticleToDraft()
@@ -98,7 +112,9 @@ export default {
   color: #1C1C1C
   position: relative
   color: $ColorBlack
-
+  
+  .ui__spinner--wrapper
+    height: calc(100vh - 100px)
   .article__poster
     min-height: calc(100vh - 200px)
     display: flex

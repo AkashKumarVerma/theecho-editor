@@ -5,7 +5,10 @@ const state = {
   username: '',
   email: '',
   verified: '',
-  image: ''
+  image: '',
+  drafts: [],
+  articles: [],
+  liked: []
 }
 
 const getters = {
@@ -19,12 +22,23 @@ const getters = {
 
   permission: (state) => {
     return state.verified
+  },
+
+  articles: (state) => {
+    return state.articles
   }
 }
 
 const mutations = {
   SET_NAME(state, username) {
     state.username = username
+  },
+
+  SET_DRAFTS(state, drafts) {
+    drafts.forEach((draft) => {
+      console.log(draft)
+      state.drafts.push(draft)
+    })
   },
 
   SET_EMAIL(state, email) {
@@ -57,6 +71,7 @@ const actions = {
     commit('SET_VERIFIED', user.verified)
     commit('SET_IMAGE', user.image)
     commit('SIGNIN')
+    commit('SET_DRAFTS', user.drafts)
   },
   
   clearUser({ commit }) {

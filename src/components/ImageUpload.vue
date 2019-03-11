@@ -62,8 +62,8 @@ export default {
 
       reader.onloadend = () => {
         this.$emit('selected', {
-          type: 'file',
-          data: reader.result
+          type: 'FILE',
+          file: reader.result
         })
       }
 

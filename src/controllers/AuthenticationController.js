@@ -5,22 +5,14 @@ import { TokenService, UserStorage } from '@/services/storage.service'
 
 const login = async (credentials) => {
   return UserService.login(credentials)
-    .then((res) => {
-      TokenService.saveToken(res.token)
+    .then((user) => {
+      TokenService.saveToken(user.token)
 
-      store.dispatch('auth/login', res)
-      store.dispatch('user/setUser', res)
-
-      const user = {
-        id: res._id,
-        username: res.username,
-        email: res.email,
-        verified: res.verified,
-        image: res.image
-      }
+      store.dispatch('auth/login', user)
+      store.dispatch('user/setUser', user)
 
       UserStorage.saveUser(user)
-      return res
+      return user
     }).catch((err) => {
       return Promise.reject(err)
     })

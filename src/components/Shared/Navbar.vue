@@ -48,9 +48,6 @@ export default {
     reseEditor() {
       EventBus.$emit(Events.RESET_EDITOR)
     }
-  },
-  mounted(){
-    console.log(this.$route)
   }
 }
 </script>
