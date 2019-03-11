@@ -11,7 +11,7 @@ const login = async (credentials) => {
       if (res.data.status === 'OK') { return res.data.value.user }
       return Promise.reject(res.data.error)
     }).catch((err) => {
-      return Promise.reject(err)
+      return Promise.reject(res.data.error)
     })
 }
 
