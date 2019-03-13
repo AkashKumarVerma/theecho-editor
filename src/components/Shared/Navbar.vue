@@ -2,12 +2,10 @@
   <nav>
     <div class="row center-xs middle-xs">
       <div class="col-xs-9 start-xs">
-        <button class="btn btn-addArticle" @click="$router.push('/editor')">
+        <!-- <button class="btn btn-addArticle" @click="$router.push('/editor')">
           <i class="fas fa-plus"></i>
           New Story
-        </button>
-        <btn @click="reseEditor" v-if="$route.path === '/editor'" class="button-reset" icon="circle-notch" type="solid" color="secondary" size="medium">RESET EDITOR</btn>
-        <btn @click="saveArticleToDraft" v-if="$route.path === '/editor'" class="button-save" icon="file-signature" type="solid" color="accent" size="medium">SAVE AS DRAFT</btn>
+        </button> -->
       </div>
       <div class="col-xs-3">
         <div class="user__menu" v-if="$store.state.user.signedIn">
@@ -63,10 +61,6 @@ nav
   right: 0
 
   z-index: 999999
-  .button-save
-    float: right
-  .btn-addArticle
-    margin-left: 20px
 
   .user__menu
     height: 60px

@@ -36,7 +36,6 @@ const mutations = {
 
   SET_DRAFTS(state, drafts) {
     drafts.forEach((draft) => {
-      console.log(draft)
       state.drafts.push(draft)
     })
   },

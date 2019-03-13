@@ -60,7 +60,7 @@ export default {
     height: auto
     margin-left: auto
     margin-right: auto
-    margin-top: 30px
+    margin-top: 10px
     img
       display: block
       width: 100%
