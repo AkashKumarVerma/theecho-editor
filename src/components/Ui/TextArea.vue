@@ -159,7 +159,7 @@ import {
 } from 'tiptap-extensions'
 
 export default {
-  name: 'Editor',
+  name: 'TextArea',
   components: {
     EditorContent,
     EditorMenuBubble,
@@ -167,17 +167,33 @@ export default {
     Modal,
     Textbox,
     Icon,
-    ImageUpload
+    ImageUpload,
   },
 
   props: {
     holder: {
       type: String,
       default: ''
+    },
+    initialValue: Object
+  },
+
+  watch: {
+    initialValue() {
+      this.value = this.initialValue
     }
   },
+
+
   data() {
     return {
+      json: this.initialValue.json,
+      html: this.initialValue.html,
+      visible: false,
+      command: '',
+      linkUrl: null,
+      linkMenuIsActive: false,
+      value: {},
       editor: new Editor({
         extensions: [
           new Blockquote(),
@@ -198,27 +214,23 @@ export default {
             showOnlyWhenEditable: true
           })
         ],
-        content: '',
+        content: this.initialValue.json,
         onUpdate: ({ getJSON, getHTML }) => {
           this.json = getJSON()
           this.html = getHTML()
           this.emitContent()
         },
         onFocus: () => {
-          console.log('Updated')
+          // console.log('Updated')
         }
-      }),
-      json: '',
-      html: '',
-      visible: false,
-      command: '',
-      linkUrl: null,
-      linkMenuIsActive: false,
+      })
     }
   },
+
   beforeDestroy() {
     this.editor.destroy()
   },
+
   methods: {
     emitContent() {
       const data = {
@@ -256,7 +268,11 @@ export default {
       command({ href: url })
       this.hideLinkMenu()
       this.editor.focus()
-    },
+    }
+  },
+
+  mounted() {
+    this.emitContent()
   }
 }
 </script>

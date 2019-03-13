@@ -1,11 +1,15 @@
 <template>
   <div class="drafts">
-    <draft-card v-for="(draft, index) in drafts" :title="draft.title" :subtitle="draft.subtitle"/>
+    <draft-card v-for="(draft, index) in drafts" 
+      :id="draft.id"
+      :title="draft.title" 
+      :subtitle="draft.subtitle"
+    />
   </div>
 </template>
 
 <script>
-import { ArticleController } from '@/controllers'
+import { DraftController } from '@/controllers'
 import DraftCard from '@/components/DraftCard'
 
 export default {
@@ -14,6 +18,7 @@ export default {
     return {
       title: '',
       subtitle: '',
+      draftId : [],
       drafts: []
     }
   },
@@ -22,12 +27,15 @@ export default {
   },
   mounted() {
     const requiredDrafts = this.$store.state.user.drafts
-    requiredDrafts.forEach( draft => {
-      ArticleController.getDraftById(draft)
+    requiredDrafts.forEach( id => {
+      DraftController.getDraftSkeleton(id)
         .then((res) => {
-          this.drafts.push(res)
+          if (!this.draftId.includes(res.draft.id)) {
+            this.draftId.push(res.draft.id)
+            this.drafts.push(res.draft)
+          }
         }).catch((err) => {
-          console.log(err)
+
         })
     })
   }
@@ -40,8 +48,9 @@ export default {
   display: flex
   flex-direction: row
   flex-wrap: wrap
+  justify-content: space-around
 
   .draft-card
-    max-width: 33%
+    max-width: 80%
 </style>
 
