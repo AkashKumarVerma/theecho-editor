@@ -12,7 +12,6 @@
     "@ckeditor/ckeditor5-build-classic": "^11.2.0",
     "@ckeditor/ckeditor5-vue": "^1.0.0-beta.1",
     "axios": "^0.18.0",
-    "register-service-worker": "^1.5.2",
     "tiptap": "^1.14.0",
     "tiptap-extensions": "^1.14.0",
     "vue": "^2.5.22",
