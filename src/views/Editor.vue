@@ -117,7 +117,7 @@ export default {
       this.saving = true
       DraftController.getDraft(this.draftId)
         .then((res) => {
-          console.log(res)
+					console.log('TCL: loadDraft -> res', res)
           this.saving = false
           this.draftTitle = res.title
           this.draftSubtitle = res.subtitle
