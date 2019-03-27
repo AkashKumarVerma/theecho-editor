@@ -1,7 +1,7 @@
 const TOKEN_KEY = 'access_token'
 const REFRESH_TOKEN_KEY = 'refresh_token'
-
 const USER_KEY = 'user'
+
 /**
  *
  * Manages the acces of items stored in localStorage
@@ -12,7 +12,14 @@ const USER_KEY = 'user'
  const TokenService = {
 
   getToken() {
-    return localStorage.getItem(TOKEN_KEY)
+    try {
+      let token = localStorage.getItem(TOKEN_KEY)
+      return token
+    } catch {
+      conosle.log(err)
+      return false
+    }
+    
   },
 
   saveToken(accessToken) {

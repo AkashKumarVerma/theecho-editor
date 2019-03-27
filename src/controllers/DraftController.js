@@ -1,5 +1,8 @@
 import DraftService from '@/services/draft.service'
 import { UserStorage } from '@/services/storage.service'
+// import draftService from '../services/draft.service';
+
+
 /**
  * Return just the draft id, title and subttile for a matching id.
  * Mainly for the purpouse of populating draft page.
@@ -37,6 +40,11 @@ const getDraft = async (id) => {
 }
 
 
+/**
+ * saves draft
+ * @param  {Object} draft Draft Object
+ * @return {Object}       Returns saved draft object.
+ */
 const saveDraft = async (draft) => {
   console.log('saveDraft Fired in controller')
 
@@ -64,6 +72,54 @@ const saveDraft = async (draft) => {
 
 }
 
+
+/**
+ * updates draft.
+ * @param  {[type]} draft [description]
+ * @return {[type]}       [description]
+ */
+const updateDraft = async (draft) => {
+  const userId = UserStorage.getUserId()
+
+  if (userId) {
+    const payload = {
+      id: userId,
+      draft
+    }
+
+    return DraftService.updateDraft(payload)
+      .then((res) => {
+        return res
+      }).catch((err) => {
+        return Promise.reject(err)
+      })
+  } else {
+    return Promise.reject({
+      code: 'StorageError',
+      message: 'Failed to retrive User Id from Local Storage.'
+    })
+  }
+}
+
+
+const submitDraft = async (draftId) => {
+  const userId = UserStorage.getUserId()
+
+  if (userId) {
+    const payload = {
+      userId,
+      draftId
+    }
+
+    return DraftService.submitDraft(payload)
+      .then((res) => {
+        return res
+      }).catch((err) => {
+        return Promise.reject(err)
+      })
+  }
+}
+
 /**
  * Deletes a draft. What else you want to know
  * 
@@ -77,9 +133,13 @@ const deleteDraft = async (id) => {
       return Promise.reject(err)
     })
 }
+
+
 export default {
   getDraftSkeleton,
   deleteDraft,
   saveDraft,
-  getDraft
+  getDraft,
+  updateDraft,
+  submitDraft
 }

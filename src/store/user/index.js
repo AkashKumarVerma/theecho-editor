@@ -11,6 +11,7 @@ const state = {
   liked: []
 }
 
+
 const getters = {
   name: (state) => {
     return state.username
@@ -29,6 +30,7 @@ const getters = {
   }
 }
 
+
 const mutations = {
   SET_NAME(state, username) {
     state.username = username
@@ -38,6 +40,20 @@ const mutations = {
     drafts.forEach((draft) => {
       state.drafts.push(draft)
     })
+  },
+
+  SET_ARTICLES(state, articles) {
+    articles.forEach((article) => {
+      state.articles.push(article)
+    })
+  },
+
+  CLEAR_DRAFTS(state) {
+    state.drafts = []
+  },
+
+  CLEAR_ARTICLES(state) {
+    state.articles = []
   },
 
   SET_EMAIL(state, email) {
@@ -54,7 +70,7 @@ const mutations = {
 
   SIGNIN(state) {
     state.signedIn = true
-    router.push('/editor')
+    router.push('/drafts')
   },
   
   SIGNOUT(state) {
@@ -71,6 +87,7 @@ const actions = {
     commit('SET_IMAGE', user.image)
     commit('SIGNIN')
     commit('SET_DRAFTS', user.drafts)
+    commit('SET_ARTICLES', user.articles)
   },
   
   clearUser({ commit }) {
@@ -78,6 +95,8 @@ const actions = {
     commit('SET_EMAIL', '')
     commit('SET_VERIFIED', false)
     commit('SET_IMAGE', '')
+    commit('CLEAR_DRAFTS')
+    commit('CLEAR_ARTICLES')
     commit('SIGNOUT')
   }
 }

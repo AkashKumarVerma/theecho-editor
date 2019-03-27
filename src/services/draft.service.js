@@ -14,9 +14,34 @@ const saveDraft = async (payload) => {
   const response = await Api.post('/drafts', payload)
 
   if (response.data.status === 'OK') {
-    console.log(response)
+    return response.data.value
+  } else {
+    return Promise.reject(response.data.error)
   }
 }
+
+const updateDraft = async (payload) => {
+  const response = await Api.put('/drafts', payload)
+
+  if (response.data.status === 'OK') {
+    return response.data.value
+  } else {
+    return Promise.reject(response.data.erros)
+  }
+}
+
+
+const submitDraft = async (payload) => {
+  const response = await Api.post('/drafts/submit', payload)
+	console.log('TCL: submitDraft -> response', response)
+
+  if (response.data.status === 'OK') {
+    return response.data.value
+  } else {
+    return Promise.reject(response.data.erros)
+  }
+}
+
 
 const getDraft = async (id) => {
   const response = await Api.get(`/drafts/${id}`)
@@ -31,5 +56,7 @@ const getDraft = async (id) => {
 export default {
   getDraftSkeleton,
   saveDraft,
-  getDraft
+  getDraft,
+  updateDraft,
+  submitDraft
 }

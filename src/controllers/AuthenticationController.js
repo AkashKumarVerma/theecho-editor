@@ -12,6 +12,7 @@ const login = async (credentials) => {
       store.dispatch('user/setUser', user)
 
       UserStorage.saveUser(user)
+
       return user
     }).catch((err) => {
       return Promise.reject(err)

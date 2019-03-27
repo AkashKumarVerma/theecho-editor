@@ -1,26 +1,33 @@
 <template>
   <div class="draft-card">
-    <h2 class="draft-card__title" v-html="title.html" />
-    <span class="draft-card__subtitle" v-html="subtitle.html" />
+    <h2 class="draft-card__title" v-html="title" />
+    <span class="draft-card__subtitle" v-html="subtitle" />
     <div class="draft-card__controls">
+      <btn @click="submitArticle" size="small" type="solid" color="accent">SUBMIT</btn>
       <btn @click="editDraft" size="small" type="solid" color="primary">EDIT</btn>
       <btn @click="deleteDraft" size="small" type="solid" color="accent">DELETE</btn>
     </div>
+    <spinner :visibility="loading" />
   </div>
 </template>
 
 <script>
-import { Btn } from '@/components/Ui'
+import { Btn, Spinner } from '@/components/Ui'
+import { DraftController } from '@/controllers'
 
 export default {
   name: 'DraftCard',
   components: {
-    Btn
+    Btn,
+    Spinner
   },
-  props: {
-    title: Object,
-    subtitle: Object,
-    id: String
+  props: { id: String },
+  data() {
+    return {
+      loading: false,
+      title: '',
+      subtitle: ''
+    }
   },
   methods: {
     editDraft() {
@@ -31,10 +38,28 @@ export default {
         }
       })
     },
+    submitArticle() {
+      this.loading = true
+      DraftController.submitDraft(this.id)
+        .then((res) => {
+          this.loading = false
+        }).catch((err) => {
+          this.loading = false
+        })
+    },
     deleteDraft() {
     }
   },
   mounted() {
+    this.loading = true
+    DraftController.getDraftSkeleton(this.id)
+      .then((res) => {
+        this.title = res.draft.title.html
+        this.subtitle = res.draft.subtitle.html
+        this.loading = false
+      }).catch((err) => {
+        this.loading = false
+      })
   }
 }
 </script>

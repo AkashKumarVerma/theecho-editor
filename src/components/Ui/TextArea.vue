@@ -250,6 +250,10 @@ export default {
       if(value.type === 'URL') {
         this.command({ src: value.url })
       } else {
+        // const data = value.file.replace(/^data:image\/\w+;base64,/, "")
+        // const buf = new Buffer(data, 'base64')
+        // console.log(buf)
+        
         this.command({ src: value.file })
       }
     },
