@@ -5,7 +5,7 @@ import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import Settings from './views/Settings.vue'
 import Drafts from './views/Drafts.vue'
-import Stories from './views/Stories.vue'
+import Articles from './views/Articles.vue'
 import Editor from './views/Editor.vue'
 import Dashboard from './views/Dashboard.vue'
 import Stats from './views/Stats.vue'
@@ -59,9 +59,9 @@ const router = new Router({
       component: Stats
     },
     {
-      path: '/stories',
-      name: 'stories',
-      component: Stories
+      path: '/articles',
+      name: 'articles',
+      component: Articles
     },
   ]
 })

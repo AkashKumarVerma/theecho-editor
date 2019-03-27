@@ -14,7 +14,7 @@
         <router-link to="/editor">
           <li><i class="fas fa-edit"></i></li>
         </router-link>  
-        <router-link to="stories">
+        <router-link to="/articles">
           <li><i class="fas fa-dragon"></i></li>
         </router-link>  
         <router-link to="/stats">

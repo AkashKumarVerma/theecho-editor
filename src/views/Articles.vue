@@ -1,40 +1,38 @@
 <template>
-  <div class="drafts">
-    <div class="drafts--header">
-      <span class="page-label"> Your Drafts </span>
-      <span class="draft-count">Total Drafts: {{ drafts.length }}</span>
+  <div class="articles">
+    <div class="articles--header">
+      <span class="page-label"> Your Articles</span>
+      <span class="article-count">Total Articles: {{ articles.length }}</span>
     </div>
     <draft-card
-      v-for="(id, index) in drafts" 
+      v-for="(article, index) in articles" 
       :key="index"
-      :id="id"
-    />
+      :id="article" />
   </div>
 </template>
 
 <script>
-import { DraftController } from '@/controllers'
 import DraftCard from '@/components/DraftCard'
 
 export default {
-  name: 'Drafts',
+  name: 'Articles',
   data() {
     return {
-      drafts: this.$store.state.user.drafts
+      articles: this.$store.state.user.articles
     }
   },
-  components:{ DraftCard },
+  components: {
+    DraftCard
+  }
 }
 </script>
 
 <style lang="sass" scoped>
-.drafts
-  padding: 20px
+.articles
   display: flex
   flex-direction: row
   flex-wrap: wrap
-  justify-content: space-around
-
+  justify-content: center
   &--header
     width: 100%
     padding: 20px 0 50px 0
@@ -47,6 +45,9 @@ export default {
       font-family: 'Playfair Display'
       font-weight: 700
       font-size: 52px
+
+    .article-count
+      font-size: 16px
 
   .draft-card
     max-width: 80%

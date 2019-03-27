@@ -3,7 +3,7 @@
     <div class="editor-navbar">
       <btn @click="reset" class="button-reset" icon="circle-notch" type="solid" color="secondary" size="medium">RESET EDITOR</btn>
       <btn @click="saveDraft" class="button-save-draft" icon="file-signature" type="solid" color="accent" size="medium">SAVE AS DRAFT</btn>
-      <btn @click="saveArticle" class="button-save" icon="file-signature" type="solid" color="primary" size="medium">SUBMIT</btn>
+      <btn @click="submitDraft" class="button-save" icon="file-signature" type="solid" color="primary" size="medium">SUBMIT</btn>
     </div>
     <div v-if="articlePoster === ''" class="article__poster">
       <div class="poster-form__head">
@@ -71,25 +71,60 @@ export default {
     Modal
   },
   methods: {
-    saveArticle() {
-
-    },
-    saveDraft() {
-      console.log('saveDraft Fired')
+    submitDraft() {
       this.saving = true
-      const draft = {
+      let draft = {
+        id: this.draftId,
         title: this.articleTitle,
         subtitle: this.articleSubtitle,
         body: this.articleBody,
         poster: this.articlePoster
       }
 
-      DraftController.saveDraft(draft)
+      console.log('Submitting Draft')
+      console.log(draft.id)
+
+      DraftController.submitDraft(draft)
         .then((res) => {
           this.saving = false
-        }).catch( err => {
+          console.log(res)
+        }).catch((err) => {
           this.saving = false
+          console.log(err)
         })
+    },
+
+    saveDraft() {
+      console.log('saveDraft Fired')
+      this.saving = true
+
+      let draft = {
+        title: this.articleTitle,
+        subtitle: this.articleSubtitle,
+        body: this.articleBody,
+        poster: this.articlePoster
+      }
+
+      // To update draft
+      if(this.draftId) {
+        draft.id = this.draftId
+        console.log(draft)
+        DraftController.updateDraft(draft)
+          .then((res) => {
+            this.saving = false
+          }).catch((err) => {
+            this.saving = false
+          })
+      } else {
+      // To save a draft first time.
+        DraftController.saveDraft(draft)
+          .then((res) => {
+            this.saving = false
+          }).catch( err => {
+            this.saving = false
+          })
+      }
+
     },
 
     setPoster(poster) {

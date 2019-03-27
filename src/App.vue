@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <!-- <sidebar v-if="this.$store.state.user.signedIn" :class="{ 'hideSidebar': this.$route.path === '/editor' }"/> -->
     <sidebar v-if="this.$store.state.user.signedIn"/>
     <div :class="{ body: true, 'padding-left': (this.$store.state.user.signedIn) }">
       <navbar v-if="this.$store.state.user.signedIn"/>
@@ -21,13 +20,16 @@ export default {
     Sidebar
   },
   mounted() {
+
     const TOKEN = TokenService.getToken()
+
 
     if(TOKEN) {
       let user = JSON.parse(UserStorage.getUser())
-      user.token = TOKEN
-      this.$store.dispatch('auth/login', user)
-      this.$store.dispatch('user/setUser', user)
+      console.log(user)
+      // user.token = TOKEN
+      // this.$store.dispatch('auth/login', user)
+      // this.$store.dispatch('user/setUser', user)
     }
   }
 }
