@@ -6,8 +6,8 @@ import store from './store'
 import ApiService from '@/services/api.service'
 import config from '@/config'
 
-ApiService.init('http://localhost:3001/editor')
-// ApiService.init('http://api.theecho.in/api/editor')
+// ApiService.init('http://localhost:3001/editor')
+ApiService.init('http://api.theecho.in/editor')
 
 Vue.config.productionTip = false
 
